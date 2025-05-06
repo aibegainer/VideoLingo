@@ -11,9 +11,10 @@ display_language: "zh-CN"
 
 # API settings
 api:
-  key: 'your-api-key'
-  base_url: 'https://yunwu.ai'
-  model: 'gpt-4.1-2025-04-14'
+  key: 'lm-studio'
+  base_url: 'http://127.0.0.1:1234'
+  model: 'qwen3-8b'
+  trans_model: 'gemma-3-4b-it'
   llm_support_json: false
 # *Number of LLM multi-threaded accesses, set to 1 if using local LLM
 max_workers: 4
@@ -42,7 +43,7 @@ burn_subtitles: true
 
 ## ======================== Advanced Settings ======================== ##
 # *🔬 h264_nvenc GPU acceleration for ffmpeg, make sure your GPU supports it
-ffmpeg_gpu: false
+ffmpeg_gpu: true
 
 # *Youtube settings
 youtube:
@@ -58,7 +59,7 @@ subtitle:
   target_multiplier: 1.2
 
 # *Summary length, set low to 2k if using local LLM
-summary_length: 8000
+summary_length: 4000
 
 # *Maximum number of words for the first rough cut, below 18 will cut too finely affecting translation, above 22 is too long and will make subsequent subtitle splitting difficult to align
 max_split_length: 20
@@ -71,7 +72,7 @@ pause_before_translate: false
 
 ## ======================== Dubbing Settings ======================== ##
 # TTS selection [sf_fish_tts, openai_tts, gpt_sovits, azure_tts, fish_tts, edge_tts, custom_tts]
-tts_method: 'azure_tts'
+tts_method: 'edge_tts'
 
 # SiliconFlow FishTTS
 sf_fish_tts:
@@ -109,7 +110,7 @@ sf_cosyvoice2:
 
 # Edge TTS configuration
 edge_tts:
-  voice: 'zh-CN-XiaoxiaoNeural'
+  voice: 'zh-CN-YunjianNeural'
 
 # SoVITS configuration
 gpt_sovits:

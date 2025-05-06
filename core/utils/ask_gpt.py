@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from threading import Lock
 import json_repair
 from openai import OpenAI
@@ -51,6 +52,10 @@ def ask_gpt(prompt, resp_type=None, valid_def=None, log_title="default"):
         return cached
 
     model = load_key("api.model")
+    # if 'translate_' in log_title:
+    #     model = load_key("api.trans_model")
+    print(f'use model: {model}')
+
     base_url = load_key("api.base_url")
     if 'ark' in base_url:
         base_url = "https://ark.cn-beijing.volces.com/api/v3" # huoshan base url
@@ -64,13 +69,18 @@ def ask_gpt(prompt, resp_type=None, valid_def=None, log_title="default"):
     params = dict(
         model=model,
         messages=messages,
-        response_format=response_format,
+        # response_format=response_format,
         timeout=300
     )
+
+    if response_format is not None:
+        params["response_format"] = response_format
+
     resp_raw = client.chat.completions.create(**params)
 
     # process and return full result
     resp_content = resp_raw.choices[0].message.content
+    resp_content = re.search(r'```json\n(.*?)```', resp_content, re.DOTALL).group(1).strip()
     if resp_type == "json":
         resp = json_repair.loads(resp_content)
     else:
