@@ -6,7 +6,7 @@ import json_repair
 from openai import OpenAI
 from core.utils.config_utils import load_key
 from rich import print as rprint
-from core.utils.decorator import except_handler
+from core.utils.decorator import except_handler, retry_ctx
 
 # ------------
 # cache gpt response
@@ -52,9 +52,10 @@ def ask_gpt(prompt, resp_type=None, valid_def=None, log_title="default"):
         return cached
 
     model = load_key("api.model")
-    # if 'translate_' in log_title:
-    #     model = load_key("api.trans_model")
-    print(f'use model: {model}')
+    if retry_ctx.current_retry == 0 and 'translate_' in log_title:
+        model = load_key("api.trans_model")
+
+    print(f'current_retry: {retry_ctx.current_retry}, use model: {model}')
 
     base_url = load_key("api.base_url")
     if 'ark' in base_url:

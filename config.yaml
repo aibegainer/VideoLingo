@@ -14,7 +14,7 @@ api:
   key: 'lm-studio'
   base_url: 'http://127.0.0.1:1234'
   model: 'qwen3-8b'
-  trans_model: 'gemma-3-4b-it'
+  trans_model: 'qwen3-8b'
   llm_support_json: false
 # *Number of LLM multi-threaded accesses, set to 1 if using local LLM
 max_workers: 4
@@ -29,8 +29,8 @@ whisper:
   # ["large-v3", "large-v3-turbo"]. Note: for zh model will force to use Belle/large-v3
   model: 'large-v3'
   # Whisper specified recognition language ISO 639-1
-  language: 'en'
-  detected_language: 'en'
+  language: 'ja'
+  detected_language: 'ja'
   # Whisper running mode ["local", "cloud", "elevenlabs"]. Specifies where to run, cloud uses 302.ai API
   runtime: 'local'
   # 302.ai API key
